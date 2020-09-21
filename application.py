@@ -9,6 +9,9 @@ from werkzeug.security import check_password_hash, generate_password_hash
 # Configure application
 app = Flask(__name__)
 
+# Configure database
+db = SQL("postgres://xxdbvyyiutrzfh:5f34c27570b453c1bf7878ec081efdd290c5cefff7684fd75e9d55c946d91273@ec2-54-247-94-127.eu-west-1.compute.amazonaws.com:5432/d1r5sk71q9ge8f")
+
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
 # Session uses filesystem instead of signed cookies
