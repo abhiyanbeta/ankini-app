@@ -1,4 +1,7 @@
+# Install using pipenv install modulename modulename2 modulename3...
+
 Flask
 Flask_session
 requests
-gunicorn
+gunicorn  # For deploying web app to heroku
+psycopg2-binary  # For SQL database
