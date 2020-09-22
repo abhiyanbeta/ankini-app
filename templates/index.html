@@ -1,9 +1,23 @@
 {% extends "layout.html" %}
 
 {% block title %}
-  Cards
+    Notes
 {% endblock %}
 
 {% block main %}
-  <h1>Hey there</h1>
+
+<!-- Display cards of all existing notes TODO: link to correct db -->
+{% for user in users %}
+<div class="card border-primary mb-3" style="max-width: 100rem; text-align:left;">
+    <div class="card-header">{{ user["username"] }}</div>
+    <div class="card-body">
+      <h4 class="card-title">{{ user["password"] }}</h4>
+      <p class="card-text">{{ user["email"] }}</p>
+      <a href="#" class="card-link">View/edit</a>
+      <a href="#" class="card-link text-danger">Delete</a>
+    </div>
+</div>
+{% endfor %}
+
+
 {% endblock %}

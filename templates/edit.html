@@ -6,33 +6,29 @@
 
 {% block main %}
 
-<!-- 2 text fields of different sizes -->
-<input class="form-control form-control-lg" type="text" placeholder="Title">
-<br>
 
-<!-- Text field with # placeholder -->
-<div>
-   <label class="sr-only" for="inlineFormInputGroup">Tag</label>
-   <div class="input-group mb-2">
-     <div class="input-group-prepend">
-       <div class="input-group-text">#</div>
+<form action="/login" method="post" style="max-width: 100rem; text-align: center" class="center_div">
+  <!-- Title text field -->
+  <input class="form-control form-control-lg" type="text" placeholder="Title">
+  <br>
+
+  <!-- Text field with # placeholder -->
+  <div>
+     <label class="sr-only" for="inlineFormInputGroup">Tag</label>
+     <div class="input-group mb-2">
+       <div class="input-group-prepend">
+         <div class="input-group-text">#</div>
+       </div>
+       <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Tag">
      </div>
-     <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Tag">
    </div>
- </div>
-<br>
-
-<h5>Body</h5>
-<!-- large text field -->
- <div class="form-group">
-  <textarea class="form-control" id="exampleFormControlTextarea1" rows="11"></textarea>
-</div>
-
-<!-- Different type of save buttons -->
-<a class="btn btn-primary" href="#" role="button">Save changes1</a>
-<button class="btn btn-primary" type="submit">Save changes2</button>
-<input class="btn btn-primary" type="submit" value="Save changes3">
-
+  <br>
+    <!-- large text field -->
+     <div class="form-group">
+      <textarea class="form-control" id="exampleFormControlTextarea1" rows="11"></textarea>
+    </div>
+    <button class="btn btn-primary" type="submit">Save</button>
+</form>
 
 
 {% endblock %}

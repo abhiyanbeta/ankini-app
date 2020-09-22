@@ -3,10 +3,11 @@ import os
 from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
+from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
 
 # My own modules
-from helpers import apology
+from helpers import apology, login_required
 
 # Configure application
 app = Flask(__name__)
@@ -36,10 +37,15 @@ def after_request(response):
 TODO
 '''
 
-# Index page
+
+# Home page
 @app.route("/")
+@login_required
 def index():
-	return render_template("index.html")
+	users = db.execute("SELECT * FROM accounts")
+	return render_template("index.html", users=users)
+
+
 
 # Password validation
 def validate(password):
@@ -119,22 +125,27 @@ def logout():
 	session.clear()
 	return redirect("/")
 
-# Testing SQL database
-@app.route("/sqltable")
-def sqltable():
-	# SQL query
-	users = db.execute("SELECT * FROM accounts")
-	# Return template, passing in result of SQL query
-	return render_template("sqltable.html", users=users)
-
 
 # Add new cards
 @app.route("/add")  #Need to do POST method for submitting form
+@login_required
 def add():
 	return render_template("add.html")
 
 
 # Edit new card -- need to prefill it with text from existing card
 @app.route("/edit")  #Need to do POST method for submitting form
+@login_required
 def edit():
 	return render_template("edit.html")
+
+
+# Error handling
+def errorhandler(e):
+    """Handle error"""
+    if not isinstance(e, HTTPException):
+        e = InternalServerError()
+    return apology(e.name, e.code)
+
+for code in default_exceptions:
+    app.errorhandler(code)(errorhandler)
