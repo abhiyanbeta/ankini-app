@@ -1,6 +1,7 @@
 import os
 import psycopg2 as SQL  # To connect to the database
 
+from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -12,8 +13,7 @@ from helpers import apology
 app = Flask(__name__)
 
 # Configure database
-db = SQL.connect("postgres://xxdbvyyiutrzfh:5f34c27570b453c1bf7878ec081efdd290c5cefff7684fd75e9d55c946d91273@ec2-54-247-94-127.eu-west-1.compute.amazonaws.com:5432/d1r5sk71q9ge8f")
-cur = db.cursor()
+db = SQL("postgres://xxdbvyyiutrzfh:5f34c27570b453c1bf7878ec081efdd290c5cefff7684fd75e9d55c946d91273@ec2-54-247-94-127.eu-west-1.compute.amazonaws.com:5432/d1r5sk71q9ge8f")
 
 # Ensure templates are auto-reloaded
 app.config["TEMPLATES_AUTO_RELOAD"] = True
@@ -71,6 +71,17 @@ def register():
 		elif not request.form.get("password") == request.form.get("confirmation"):
 			return apology("Your passwords do not match.")
 
+		# Ensure email not already used
+		cur.execute("""
+		SET email = request.form.get('email');
+		SELECT * FROM users WHERE email = current_setting('email');
+		""")
+
+
+		check_user_exists = cur.fetchall()
+		print(check_user_exists)
+		print(len(check_user_exists))
+
 		# -- Passed error-checking - proceed to create user --
 		# Hash the password
 		hashed_password = generate_password_hash(request.form.get("password"))
@@ -89,8 +100,7 @@ def register():
 @app.route("/sqltable")
 def sqltable():
 	# SQL query
-	cur.execute("SELECT * FROM accounts;")
-	users = cur.fetchall()
+	users = db.execute("SELECT * FROM accounts")
 	# Return template, passing in result of SQL query
 	return render_template("sqltable.html", users=users)
 

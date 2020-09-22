@@ -17,9 +17,9 @@
         <tbody>
             {% for user in users %}
             <tr>
-                <td>{{ user[1] }}</td>
-                <td>{{ user[2] }}</td>
-                <td>{{ user[3] }}</td>
+                <td>{{ user["username"] }}</td>
+                <td>{{ user["password"] }}</td>
+                <td>{{ user["email"] }}</td>
             </tr>
             {% endfor %}
 
@@ -46,10 +46,10 @@
 
 {% for user in users %}
 <div class="card border-primary mb-3" style="max-width: 100rem; text-align:left;">
-    <div class="card-header">{{ user[1] }}</div>
+    <div class="card-header">{{ user["username"] }}</div>
     <div class="card-body">
-      <h4 class="card-title">{{ user[2] }}</h4>
-      <p class="card-text">{{ user[3] }}</p>
+      <h4 class="card-title">{{ user["password"] }}</h4>
+      <p class="card-text">{{ user["email"] }}</p>
       <a href="#" class="card-link">View</a>
       <a href="#" class="card-link text-danger">Delete</a>
     </div>

@@ -11,6 +11,7 @@ gunicorn = "*"
 requests = "*"
 flask-session = "*"
 psycopg2-binary = "*"
+cs50 = "*"
 
 [requires]
 python_version = "3.8"
