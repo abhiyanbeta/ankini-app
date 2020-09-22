@@ -18,8 +18,20 @@
   <div class="card-body">
     <h5 class="card-title">{{ i["title"] }}</h5>
     <p class="card-text">{{ i["body"] }}</p>
-    <a href="/edit/{{ i['note_id'] }}" class="card-link">Edit</a>
-    <a href="#" class="card-link text-danger">Delete</a>
+
+    <!-- Edit and delete buttons -->
+    <div class="btn-group">
+      <form method="get" action="/edit/{{ i['note_id'] }}">
+        <button type="submit" class="btn btn-outline-primary mr-3">Edit</button>
+      </form>
+      <form method="post" action="/delete/{{ i['note_id'] }}">
+        <button type="submit" class="btn btn-outline-danger">Delete</button>
+      </form>
+    </div>
+
+
+
+
   </div>
 </div>
 

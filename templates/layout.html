@@ -42,10 +42,17 @@
         <!-- TODO -->
         {% if session.user_id %}
           <ul class="navbar-nav mr-auto">
-            <li class="nav-item"><a class="nav-link" href="/">Cards</a></li>
+            <li class="nav-item"><a class="nav-link" href="/">Notes</a></li>
             <li class="nav-item"><a class="nav-link" href="/add">Add</a></li>
             <li class="nav-item"><a class="nav-link" href="/logout">Log out</a></li>
           </ul>
+
+          <!-- TODO: Search nav bar IMPLEMENT live search -->
+          <form class="form-inline my-2 my-lg-0">
+            <input class="form-control mr-sm-2" type="text" placeholder="Search notes...">
+            <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
+          </form>
+
 
         <!-- Display following navigation items if user NOT logged in -->
         {% else %}
@@ -55,11 +62,6 @@
           </ul>
         {% endif %}
 
-        <!-- TODO: make search functionable -->
-        <form class="form-inline my-2 my-lg-0">
-          <input class="form-control mr-sm-2" type="text" placeholder="Search...">
-          <button class="btn btn-secondary my-2 my-sm-0" type="submit">Search</button>
-        </form>
 
 <!-- Search button examples -->
 
@@ -69,11 +71,10 @@
 
     </nav>
 
-    <!-- Flashed messages??? -->
-    <!-- TODO -->
+    <!-- Flashed messages -->
     {% if get_flashed_messages() %}
         <header>
-            <div class="alert alert-primary border text-center" role="alert">
+            <div class="{{ category }} alert alert-primary border text-center" role="alert">
                 {{ get_flashed_messages() | join(" ") }}
             </div>
         </header>

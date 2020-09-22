@@ -192,6 +192,18 @@ def view(note_id):
 	print(note_id)
 	return render_template("view.html", note_id=note_id, note=note)
 
+# Delete
+@app.route("/delete/<note_id>", methods=['POST'])
+@login_required
+def delete(note_id):
+    db.execute("""
+		DELETE FROM notes
+		WHERE note_id=:note_id
+	""", note_id=note_id)
+    flash('Deleted!')
+    return redirect("/")
+
+
 
 # Error handling
 def errorhandler(e):

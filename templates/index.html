@@ -29,7 +29,7 @@
   TODO Implement search
   </p>
 <div class="container">
-<input class="form-control" id="listSearch" type="text" placeholder="Type something to search list items">
+<input class="form-control" id="listSearch" type="text" placeholder="Search notes...">
 <br>
 <!-- Display cards of all existing notes TODO: link to correct db -->
 <ul class="list-group" style="list-style-type:none;">
@@ -40,8 +40,18 @@
         <div class="card-body">
           <h4 class="card-title">{{ note["title"] }}</h4>
           <p class="card-text overflow">{{ note["body"] }}</p>
-          <a href="/view/{{ note['note_id'] }}" class="card-link">View/edit</a>
-          <a href="#" class="card-link text-danger">Delete</a>
+
+          <!-- View/edit and delete buttons -->
+          <div class="btn-group">
+            <form method="get" action="/view/{{ note['note_id'] }}">
+              <button type="submit" class="btn btn-outline-primary mr-3">View/edit</button>
+            </form>
+            <form method="post" action="/delete/{{ note['note_id'] }}">
+              <button type="submit" class="btn btn-outline-danger">Delete</button>
+            </form>
+          </div>
+
+
         </div>
     </div>
   </li>
