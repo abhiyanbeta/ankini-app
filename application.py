@@ -42,8 +42,15 @@ TODO
 @app.route("/")
 @login_required
 def index():
-	users = db.execute("SELECT * FROM accounts")
-	return render_template("index.html", users=users)
+	notes = db.execute("""
+		SELECT * FROM notes
+		WHERE user_id=:user_id
+	""", user_id=session["user_id"])
+
+
+
+
+	return render_template("index.html", notes=notes)
 
 
 
@@ -149,10 +156,41 @@ def add():
 
 
 # Edit new card -- need to prefill it with text from existing card
-@app.route("/edit")  #Need to do POST method for submitting form
+# TODO Atm anyone can visit note id by typing in URL, need to validate that user owns that note
+@app.route("/edit/<note_id>", methods=["GET", "POST"])  #Need to do POST method for submitting form
 @login_required
-def edit():
-	return render_template("edit.html")
+def edit(note_id):
+
+	note = db.execute("""
+		SELECT * FROM notes
+		WHERE note_id=:note_id
+	""", note_id=note_id)
+
+	return render_template("edit.html", note=note)
+
+
+@app.route("/edited", methods=["POST"])  #Need to do POST method for submitting form
+@login_required
+def edited():
+	# IMPLEMENTING BEING ABLE TO EDIT NOTE
+
+
+	return apology("TODO update edited note.")
+
+
+# View the card
+# TODO Atm anyone can visit note id by typing in URL, need to validate that user owns that note
+@app.route("/view/<note_id>")
+@login_required
+def view(note_id):
+	note = db.execute("""
+		SELECT * FROM notes
+		WHERE note_id=:note_id
+	""", note_id=note_id)
+
+
+	print(note_id)
+	return render_template("view.html", note_id=note_id, note=note)
 
 
 # Error handling

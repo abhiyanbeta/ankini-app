@@ -8,3 +8,10 @@ main img
     margin: 0 auto;
     width:80% /* value of your choice which suits your alignment */
 }
+
+/* Truncate body of notes when displaying notes list in index page */
+.overflow {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

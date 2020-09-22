@@ -6,25 +6,25 @@
 
 {% block main %}
 
-<form action="/signup" method="post">
+  <form action="/signup" method="post" style="max-width: 15rem; text-align: center" class="center_div">
 
-  <!-- Email filed -->
-    <div class="form-group">
-        <input autocomplete="off" autofocus class="form-control" id="email" name="email" placeholder="Email" type="email">
-    </div>
+    <!-- Email filed -->
+      <div class="form-group">
+          <input autocomplete="off" autofocus class="form-control" id="email" name="email" placeholder="Email" type="email">
+      </div>
 
-    <!--Password field-->
-    <div class="form-group">
-        <input class="form-control" name="password" placeholder="Password" type="password">
-    </div>
+      <!--Password field-->
+      <div class="form-group">
+          <input class="form-control" name="password" placeholder="Password" type="password">
+      </div>
 
-    <!--Password again field-->
-    <div class="form-group">
-        <input class="form-control" name="confirmation" placeholder="Confirm password" type="password">
-    </div>
+      <!--Password again field-->
+      <div class="form-group">
+          <input class="form-control" name="confirmation" placeholder="Confirm password" type="password">
+      </div>
 
-    <!--Button-->
-    <button class="btn btn-primary" type="submit">Sign up</button>
+      <!--Button-->
+      <button class="btn btn-primary" type="submit">Sign up</button>
   </form>
 
 

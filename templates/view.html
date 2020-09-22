@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}
+    Note
+{% endblock %}
+
+
+{% block main %}
+
+
+
+
+{% for i in note %}
+
+
+<div class="card">
+  <div class="card-header">#{{ i["tag"] }}</div>
+  <div class="card-body">
+    <h5 class="card-title">{{ i["title"] }}</h5>
+    <p class="card-text">{{ i["body"] }}</p>
+    <a href="/edit/{{ i['note_id'] }}" class="card-link">Edit</a>
+    <a href="#" class="card-link text-danger">Delete</a>
+  </div>
+</div>
+
+
+
+{% endfor %}
+
+{% endblock %}

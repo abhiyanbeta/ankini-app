@@ -1,23 +1,64 @@
 {% extends "layout.html" %}
 
+
+
 {% block title %}
     Notes
 {% endblock %}
 
 {% block main %}
 
-<!-- Display cards of all existing notes TODO: link to correct db -->
-{% for user in users %}
-<div class="card border-primary mb-3" style="max-width: 100rem; text-align:left;">
-    <div class="card-header">{{ user["username"] }}</div>
-    <div class="card-body">
-      <h4 class="card-title">{{ user["password"] }}</h4>
-      <p class="card-text">{{ user["email"] }}</p>
-      <a href="#" class="card-link">View/edit</a>
-      <a href="#" class="card-link text-danger">Delete</a>
-    </div>
+
+<!-- <h1>HEADING</h1>
+
+<div class="container">
+  <input class="form-control" id="listSearch" type="text" placeholder="Type something to search list items">
+  <br>
+  <ul class="list-group" id="myList">
+    <li class="list-group-item">First item</li>
+    <li class="list-group-item">Second item</li>
+    <li class="list-group-item">Third item</li>
+    <li class="list-group-item">Fourth item</li>
+  </ul>
 </div>
-{% endfor %}
+<br><br>
 
+<h1>HEADING</h1><br><br> -->
 
+<p>
+  TODO Implement search
+  </p>
+<div class="container">
+<input class="form-control" id="listSearch" type="text" placeholder="Type something to search list items">
+<br>
+<!-- Display cards of all existing notes TODO: link to correct db -->
+<ul class="list-group" style="list-style-type:none;">
+  {% for note in notes %}
+  <li>
+    <div class="card mb-4" style="max-width: 100rem; text-align:left;">
+        <div class="card-header">#{{ note["tag"] }}</div>
+        <div class="card-body">
+          <h4 class="card-title">{{ note["title"] }}</h4>
+          <p class="card-text overflow">{{ note["body"] }}</p>
+          <a href="/view/{{ note['note_id'] }}" class="card-link">View/edit</a>
+          <a href="#" class="card-link text-danger">Delete</a>
+        </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+</div>
+
+{% endblock %}
+
+{% block script %}
+  <!-- For searching list -->
+  $(document).ready(function(){
+    $("#listSearch").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myList li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
 {% endblock %}

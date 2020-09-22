@@ -6,10 +6,11 @@
 
 {% block main %}
 
+{% for i in note %}
 
-<form action="/login" method="post" style="max-width: 100rem; text-align: center" class="center_div">
+<form action="/edited" method="post" style="max-width: 100rem; text-align: center" class="center_div">
   <!-- Title text field -->
-  <input class="form-control form-control-lg" type="text" placeholder="Title">
+  <input class="form-control form-control-lg" type="text" value={{ i["title"] }}>
   <br>
 
   <!-- Text field with # placeholder -->
@@ -19,16 +20,21 @@
        <div class="input-group-prepend">
          <div class="input-group-text">#</div>
        </div>
-       <input type="text" class="form-control" placeholder="Tag">
+       <input type="text" class="form-control" value={{ i["tag"] }}>
      </div>
    </div>
   <br>
     <!-- large text field -->
      <div class="form-group">
-      <textarea class="form-control" rows="11"></textarea>
+      <textarea class="form-control" rows="11">{{ i["body"] }}</textarea>
     </div>
     <button class="btn btn-primary" type="submit">Save</button>
+
 </form>
+
+
+{% endfor %}
+
 
 
 {% endblock %}
