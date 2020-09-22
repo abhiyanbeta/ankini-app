@@ -51,16 +51,13 @@ def validate(password):
 		return apology("Password must contain at least one number")
 
 
-	cur.execute("INSERT INTO users (email, password) VALUES ('chris@fakemail.com', 'password');")
-	return apology("Inserted? I think")
-
 
 @app.route("/signup", methods=["GET", "POST"])
 def register():
 	if request.method == "POST":  # TODO if user tries to register
+		# -- Error checking for email and password --
 		# Validate password complexity
 		validation_errors = validate(request.form.get("password"))
-
         # Ensure username was submitted
 		if not request.form.get("email"):
 			return apology("You must provide an email address")
@@ -74,7 +71,16 @@ def register():
 		elif not request.form.get("password") == request.form.get("confirmation"):
 			return apology("Your passwords do not match.")
 
-		# return apology("TODO")
+		# -- Passed error-checking - proceed to create user --
+		# Hash the password
+		hashed_password = generate_password_hash(request.form.get("password"))
+		# Insert username and hashed password into users database
+		cur.execute("INSERT INTO users (email, password) VALUES (%s, %s)", (request.form.get("email"), hashed_password))
+		db.commit()  # Ensures SQL command executes
+		return apology("User created. Please log in.")
+
+
+
 	else:
 		return render_template("signup.html")
 
