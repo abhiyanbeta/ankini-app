@@ -5,7 +5,7 @@
 {% endblock %}
 
 {% block main %}
-    <table class="table table-striped">
+    <table class="table table-striped" style="text-align: left">
         <thead>
             <tr>
                 <th>Username</th>  <!-- rendered table headings -->
@@ -15,7 +15,7 @@
         </thead>
 
         <tbody>
-            {% for user in users2 %}
+            {% for user in users %}
             <tr>
                 <td>{{ user[1] }}</td>
                 <td>{{ user[2] }}</td>
@@ -33,7 +33,7 @@
     </table>
 
 <!-- Card test -->
-<div class="card border-primary mb-3" style="max-width: 100rem;">
+<div class="card border-primary mb-3" style="max-width: 100rem; text-align:left;">
     <div class="card-header">#git</div>
     <div class="card-body">
       <h4 class="card-title">Most commonly used git commands</h4>
@@ -44,8 +44,8 @@
 </div>
 
 
-{% for user in users2 %}
-<div class="card border-primary mb-3" style="max-width: 100rem;">
+{% for user in users %}
+<div class="card border-primary mb-3" style="max-width: 100rem; text-align:left;">
     <div class="card-header">{{ user[1] }}</div>
     <div class="card-body">
       <h4 class="card-title">{{ user[2] }}</h4>

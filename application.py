@@ -51,6 +51,10 @@ def validate(password):
 		return apology("Password must contain at least one number")
 
 
+	cur.execute("INSERT INTO users (email, password) VALUES ('chris@fakemail.com', 'password');")
+	return apology("Inserted? I think")
+
+
 @app.route("/signup", methods=["GET", "POST"])
 def register():
 	if request.method == "POST":  # TODO if user tries to register
@@ -79,12 +83,10 @@ def register():
 @app.route("/sqltable")
 def sqltable():
 	# SQL query
-	users = cur.execute("SELECT * FROM accounts;")
-	users2 = cur.fetchall()
-	for user in users2:
-		print(user)
+	cur.execute("SELECT * FROM accounts;")
+	users = cur.fetchall()
 	# Return template, passing in result of SQL query
-	return render_template("sqltable.html", users2=users2)
+	return render_template("sqltable.html", users=users)
 
 
 # Add new cards
