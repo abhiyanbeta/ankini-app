@@ -4,4 +4,4 @@ Flask
 Flask_session
 requests
 gunicorn  # For deploying web app to heroku
-psycopg2-binary  # For SQL database
+cs50  # For SQL database

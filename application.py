@@ -1,5 +1,4 @@
 import os
-import psycopg2 as SQL  # To connect to the database
 
 from cs50 import SQL
 from flask import Flask, redirect, render_template, request, session
