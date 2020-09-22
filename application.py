@@ -71,26 +71,23 @@ def register():
 			return apology("Your passwords do not match.")
 
 		# Ensure email not already used
-		cur.execute("""
-		SET email = request.form.get('email');
-		SELECT * FROM users WHERE email = current_setting('email');
-		""")
-
-
-		check_user_exists = cur.fetchall()
-		print(check_user_exists)
-		print(len(check_user_exists))
-
-		# -- Passed error-checking - proceed to create user --
-		# Hash the password
-		hashed_password = generate_password_hash(request.form.get("password"))
-		# Insert username and hashed password into users database
-		cur.execute("INSERT INTO users (email, password) VALUES (%s, %s)", (request.form.get("email"), hashed_password))
-		db.commit()  # Ensures SQL command executes
-		return apology("User created. Please log in.")
-
-
-
+		check_user_exists = db.execute("SELECT * FROM users WHERE email = :email",
+										email=request.form.get("email"))
+		if len(check_user_exists) == 1:
+			return apology("Email address already in use. Please enter another.")
+		else:  # Email not in use so create new user
+			# Hash the password
+			hashed_password = generate_password_hash(request.form.get("password"))
+			# Insert username and hashed password into users database
+			db.execute("INSERT INTO users (email, password) VALUES (:email, :password)",
+						email=request.form.get("email"), password=hashed_password)
+			# Identify which user has just registered
+			rows = db.execute("SELECT * FROM users WHERE email = :email",
+							email=request.form.get("email"))
+            # Log in just registered user
+			session["user_id"] = rows[0]["user_id"]
+            # Redirect user to home page
+			return redirect("/")
 	else:
 		return render_template("signup.html")
 
