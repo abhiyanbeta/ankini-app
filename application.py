@@ -92,6 +92,33 @@ def register():
 		return render_template("signup.html")
 
 
+# Log in
+@app.route("/login", methods=["GET", "POST"])
+def login():
+	session.clear()  # Clear any pre-existing session
+	# Error-checking for email and password
+	if request.method == "POST":
+		if not request.form.get("email"):
+			return apology("Enter your email address")
+		elif not request.form.get("password"):
+			return apology("Enter your password")
+		# Check if user exists and password is correct
+		rows = db.execute("SELECT * FROM users WHERE email = :email",
+							email=request.form.get("email"))
+		if len(rows) != 1 or not check_password_hash(rows[0]["password"], request.form.get("password")):
+			return apology("Invalid email address or password")
+		# Remember which user has logged in and redirect to homepage
+		session["user_id"] = rows[0]["user_id"]
+		return redirect("/")
+	else:  # Page reached via GET method
+		return render_template("login.html")
+
+# Log out
+@app.route("/logout")
+def logout():
+	session.clear()
+	return redirect("/")
+
 # Testing SQL database
 @app.route("/sqltable")
 def sqltable():
