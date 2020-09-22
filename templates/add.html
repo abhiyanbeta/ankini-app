@@ -6,25 +6,28 @@
 
 {% block main %}
 
-<form action="/login" method="post" style="max-width: 100rem; text-align: center" class="center_div">
+<form action="#" method="post" style="max-width: 100rem; text-align: center" class="center_div needs-validation">
   <!-- Title text field -->
-  <input class="form-control form-control-lg" type="text" placeholder="Title">
+  <div>
+    <input name="title" class="form-control form-control-lg" type="text" placeholder="Title" required>
+  </div>
+
   <br>
 
   <!-- Text field with # placeholder -->
   <div>
-     <label class="sr-only" for="inlineFormInputGroup">Tag</label>
+     <label class="sr-only">Tag</label>
      <div class="input-group mb-2">
        <div class="input-group-prepend">
          <div class="input-group-text">#</div>
        </div>
-       <input type="text" class="form-control" id="inlineFormInputGroup" placeholder="Tag">
+       <input name="tag" type="text" class="form-control" placeholder="Tag" required>
      </div>
    </div>
   <br>
     <!-- large text field -->
      <div class="form-group">
-      <textarea class="form-control" id="exampleFormControlTextarea1" rows="11"></textarea>
+      <textarea name="body" class="form-control" placeholder="Notes" rows="9" required></textarea>
     </div>
     <button class="btn btn-primary" type="submit">Save</button>
 </form>

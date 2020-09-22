@@ -1,7 +1,7 @@
 import os
 
 from cs50 import SQL
-from flask import Flask, redirect, render_template, request, session
+from flask import Flask, flash, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.exceptions import default_exceptions, HTTPException, InternalServerError
 from werkzeug.security import check_password_hash, generate_password_hash
@@ -127,10 +127,25 @@ def logout():
 
 
 # Add new cards
-@app.route("/add")  #Need to do POST method for submitting form
+@app.route("/add", methods=["GET", "POST"])  #Need to do POST method for submitting form
 @login_required
 def add():
-	return render_template("add.html")
+	if request.method == "POST":
+		# Add note
+		db.execute("""
+			INSERT INTO notes (user_id, title, tag, body)
+			VALUES (:user_id, :title, :tag, :body)
+			""",
+					user_id=session["user_id"],
+					title=request.form.get("title"),
+					tag=request.form.get("tag"),
+					body=request.form.get("body")
+					)
+		flash("Added note!")
+		return redirect("/add")
+
+	else: # GET request
+		return render_template("add.html")
 
 
 # Edit new card -- need to prefill it with text from existing card
