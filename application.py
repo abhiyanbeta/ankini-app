@@ -1,11 +1,12 @@
-# Deploy to Heroku: https://www.geeksforgeeks.org/deploy-python-flask-app-on-heroku/
-
 import os
 import psycopg2 as SQL  # To connect to the database
 
 from flask import Flask, redirect, render_template, request, session
 from flask_session import Session
 from werkzeug.security import check_password_hash, generate_password_hash
+
+# My own modules
+from helpers import apology
 
 # Configure application
 app = Flask(__name__)
@@ -41,6 +42,38 @@ TODO
 def index():
 	return render_template("index.html")
 
+# Password validation
+def validate(password):
+	import re  # Regular expressions
+	if len(password) < 6:
+		return apology("Password must be at least 6 characters")
+	elif not re.search("[0-9]", password):  # No number entered
+		return apology("Password must contain at least one number")
+
+
+@app.route("/signup", methods=["GET", "POST"])
+def register():
+	if request.method == "POST":  # TODO if user tries to register
+		# Validate password complexity
+		validation_errors = validate(request.form.get("password"))
+
+        # Ensure username was submitted
+		if not request.form.get("email"):
+			return apology("You must provide an email address")
+        # Ensure password was submitted
+		elif not request.form.get("password"):
+			return apology("You must provide a password")
+		elif validation_errors:  # Validate password complexity
+			return validation_errors
+		elif not request.form.get("confirmation"):
+			return apology("You must re-type your password")
+		elif not request.form.get("password") == request.form.get("confirmation"):
+			return apology("Your passwords do not match.")
+
+		# return apology("TODO")
+	else:
+		return render_template("signup.html")
+
 
 # Testing SQL database
 @app.route("/sqltable")
@@ -58,3 +91,9 @@ def sqltable():
 @app.route("/add")  #Need to do POST method for submitting form
 def add():
 	return render_template("add.html")
+
+
+# Edit new card -- need to prefill it with text from existing card
+@app.route("/edit")  #Need to do POST method for submitting form
+def edit():
+	return render_template("edit.html")
