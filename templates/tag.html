@@ -1,0 +1,57 @@
+<!-- To view all cards associated with single tag -->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Tag
+{% endblock %}
+
+{% block main %}
+
+
+
+<div class="container">
+<h2>#{{ tag }}</h2><br>
+<input class="form-control" id="myInput" type="text" placeholder="Search notes...">
+<br>
+<!-- Display cards of all existing notes TODO: link to correct db -->
+<ul class="list-group" style="list-style-type:none;" id="myList">
+  {% for note in tagged_notes %}
+  <li>
+    <div class="card mb-4" style="max-width: 100rem; text-align:left;">
+        <div class="card-header">#{{ note["tag"] }}</div>
+        <div class="card-body">
+          <h4 class="card-title">{{ note["title"] }}</h4>
+          <p class="card-text overflow">{{ note["body"] }}</p>
+
+          <!-- View/edit and delete buttons -->
+          <div class="btn-group">
+            <form method="get" action="/view/{{ note['note_id'] }}">
+              <button type="submit" class="btn btn-outline-primary mr-3">View/edit</button>
+            </form>
+            <form method="post" action="/delete/{{ note['note_id'] }}">
+              <button type="submit" class="btn btn-outline-danger">Delete</button>
+            </form>
+          </div>
+
+
+        </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+</div>
+
+{% endblock %}
+
+{% block script %}
+  <!-- jQuery for searching list -->
+  $(document).ready(function(){
+    $("#myInput").on("keyup", function() {
+      var value = $(this).val().toLowerCase();
+      $("#myList li").filter(function() {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+      });
+    });
+  });
+{% endblock %}

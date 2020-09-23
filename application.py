@@ -195,15 +195,13 @@ def view(note_id):
 @app.route("/tag", methods=["GET", "POST"])
 @login_required
 def tag():
-	tag = request.form.get("tag")
-
-	# tagged_notes = db.execute("""
-	# #TODO
-	# """)
-
-
-	print(tag)
-	return apology("todo")
+	tag = request.form.get("tag")  # Obtain the tag clicked
+	# Obtain the notes with that tag
+	tagged_notes = db.execute("""
+	SELECT * FROM notes
+	WHERE tag=:tag
+	""", tag=tag)
+	return render_template("tag.html", tag=tag, tagged_notes=tagged_notes)
 
 
 # Delete
