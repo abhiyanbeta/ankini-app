@@ -9,7 +9,7 @@
 <form action="#" method="post" style="max-width: 100rem; text-align: center" class="center_div needs-validation">
   <!-- Title text field -->
   <div>
-    <input name="title" class="form-control form-control-lg" type="text" placeholder="Title" required>
+    <input name="title" class="form-control form-control-lg" type="text" placeholder="Title" required maxlength="100">
   </div>
 
   <br>
@@ -21,7 +21,10 @@
        <div class="input-group-prepend">
          <div class="input-group-text">#</div>
        </div>
-       <input name="tag" type="text" class="form-control" placeholder="Tag" required>
+
+       <input name="tag" type="text" class="form-control" placeholder="Tag" required onkeydown="return keydownHandler(event)" maxlength="25">
+
+
      </div>
    </div>
   <br>
@@ -31,5 +34,31 @@
     </div>
     <button class="btn btn-primary" type="submit">Save</button>
 </form>
+
+{% endblock %}
+
+{% block script %}
+
+<!-- Does not allow typing spaces in tag field -->
+  function keydownHandler(event)
+  {
+      var keynum;
+      var keychar;
+      var numcheck;
+
+      if(window.event) // IE8 and earlier
+      {
+          keynum = event.keyCode;
+      }
+      else if(event.which) // IE9/Firefox/Chrome/Opera/Safari
+      {
+          keynum = event.which;
+      }
+
+      keychar = String.fromCharCode(keynum);
+      numcheck = / /;
+      return !numcheck.test(keychar);
+  }
+
 
 {% endblock %}

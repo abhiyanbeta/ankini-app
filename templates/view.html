@@ -8,12 +8,9 @@
 {% block main %}
 
 
-
-
 {% for i in note %}
 
 <div>
-
 
 <button type="button" class="btn btn-outline-secondary">#{{ i["tag"] }}</button>
 <br><br>
@@ -29,7 +26,6 @@
     <button type="submit" class="btn btn-outline-danger">Delete</button>
   </form>
 </div>
-
 
 {% endfor %}
 
