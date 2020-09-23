@@ -190,13 +190,24 @@ def view(note_id):
 		SELECT * FROM notes
 		WHERE note_id=:note_id
 	""", note_id=note_id)
-
-
-	print(note_id)
 	return render_template("view.html", note_id=note_id, note=note)
 
+@app.route("/tag", methods=["GET", "POST"])
+@login_required
+def tag():
+	tag = request.form.get("tag")
+
+	# tagged_notes = db.execute("""
+	# #TODO
+	# """)
+
+
+	print(tag)
+	return apology("todo")
+
+
 # Delete
-@app.route("/delete/<note_id>", methods=['POST'])
+@app.route("/delete/<note_id>", methods=["POST"])
 @login_required
 def delete(note_id):
     db.execute("""

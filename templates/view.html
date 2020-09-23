@@ -12,8 +12,11 @@
 
 <div>
 
-<button type="button" class="btn btn-outline-secondary">#{{ i["tag"] }}</button>
-<br><br>
+<form action="/tag" method="post">
+  <button type="submit" class="btn btn-outline-secondary" name="tag" value="{{ i['tag'] }}">#{{ i["tag"] }}</button>
+</form>
+
+<br>
 <h1>{{ i["title"] }}</h1>
 <p class="whitespace">{{ i["body"] }}</p>
 </div>

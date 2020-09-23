@@ -10,7 +10,7 @@
 
 <form action="/edited/{{ i['note_id'] }}" method="post" style="max-width: 100rem; text-align: center" class="center_div">
   <!-- Title text field -->
-  <input class="form-control form-control-lg" type="text" value={{ i["title"] }} required name="title">
+  <input class="form-control form-control-lg" type="text" value={{ i["title"] }} required name="title" maxlength="100">
   <br>
 
   <!-- Text field with # placeholder -->
@@ -20,7 +20,7 @@
        <div class="input-group-prepend">
          <div class="input-group-text">#</div>
        </div>
-       <input type="text" class="form-control" value={{ i["tag"] }} required name="tag">
+       <input type="text" class="form-control" value={{ i["tag"] }} name="tag" required onkeydown="return keydownHandler(event)" maxlength="25" pattern="[a-zA-Z]+" title="Letters only. No special characters including #.">
      </div>
    </div>
   <br>
@@ -35,6 +35,32 @@
 
 {% endfor %}
 
+
+
+{% endblock %}
+
+{% block script %}
+
+<!-- Does not allow typing spaces in tag field -->
+  function keydownHandler(event)
+  {
+      var keynum;
+      var keychar;
+      var numcheck;
+
+      if(window.event) // IE8 and earlier
+      {
+          keynum = event.keyCode;
+      }
+      else if(event.which) // IE9/Firefox/Chrome/Opera/Safari
+      {
+          keynum = event.which;
+      }
+
+      keychar = String.fromCharCode(keynum);
+      numcheck = / /;
+      return !numcheck.test(keychar);
+  }
 
 
 {% endblock %}
