@@ -15,3 +15,8 @@ main img
   overflow: hidden;
   text-overflow: ellipsis;
 }
+
+/* Show line breaks when displaying text field on view note page */
+.whitespace {
+  white-space: pre-wrap;
+}

@@ -169,13 +169,16 @@ def edit(note_id):
 	return render_template("edit.html", note=note)
 
 
-@app.route("/edited", methods=["POST"])  #Need to do POST method for submitting form
+@app.route("/edited/<note_id>", methods=["POST"])  #Need to do POST method for submitting form
 @login_required
-def edited():
-	# IMPLEMENTING BEING ABLE TO EDIT NOTE
-
-
-	return apology("TODO update edited note.")
+def edited(note_id):
+	edited = db.execute("""
+		UPDATE notes
+		SET tag=:tag, title=:title, body=:body
+		WHERE note_id=:note_id
+	""", tag=request.form.get("tag"), title=request.form.get("title"), body=request.form.get("body"), note_id=note_id)
+	flash("Updated!")
+	return redirect("/")
 
 
 # View the card
@@ -202,6 +205,9 @@ def delete(note_id):
 	""", note_id=note_id)
     flash('Deleted!')
     return redirect("/")
+
+
+
 
 
 

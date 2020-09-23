@@ -8,31 +8,11 @@
 
 {% block main %}
 
-
-<!-- <h1>HEADING</h1>
-
 <div class="container">
-  <input class="form-control" id="listSearch" type="text" placeholder="Type something to search list items">
-  <br>
-  <ul class="list-group" id="myList">
-    <li class="list-group-item">First item</li>
-    <li class="list-group-item">Second item</li>
-    <li class="list-group-item">Third item</li>
-    <li class="list-group-item">Fourth item</li>
-  </ul>
-</div>
-<br><br>
-
-<h1>HEADING</h1><br><br> -->
-
-<p>
-  TODO Implement search
-  </p>
-<div class="container">
-<input class="form-control" id="listSearch" type="text" placeholder="Search notes...">
+<input class="form-control" id="myInput" type="text" placeholder="Search notes...">
 <br>
 <!-- Display cards of all existing notes TODO: link to correct db -->
-<ul class="list-group" style="list-style-type:none;">
+<ul class="list-group" style="list-style-type:none;" id="myList">
   {% for note in notes %}
   <li>
     <div class="card mb-4" style="max-width: 100rem; text-align:left;">
@@ -62,9 +42,9 @@
 {% endblock %}
 
 {% block script %}
-  <!-- For searching list -->
+  <!-- jQuery for searching list -->
   $(document).ready(function(){
-    $("#listSearch").on("keyup", function() {
+    $("#myInput").on("keyup", function() {
       var value = $(this).val().toLowerCase();
       $("#myList li").filter(function() {
         $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
