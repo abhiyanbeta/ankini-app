@@ -20,3 +20,10 @@ main img
 .whitespace {
   white-space: pre-wrap;
 }
+
+/* Button spacings for tags page */
+.button-box {
+   text-align:center;
+   margin-top:7px;
+   margin-bottom:7px;
+}

@@ -192,6 +192,7 @@ def view(note_id):
 	""", note_id=note_id)
 	return render_template("view.html", note_id=note_id, note=note)
 
+# View all cards associated with single tag
 @app.route("/tag", methods=["GET", "POST"])
 @login_required
 def tag():
@@ -202,6 +203,15 @@ def tag():
 	WHERE tag=:tag
 	""", tag=tag)
 	return render_template("tag.html", tag=tag, tagged_notes=tagged_notes)
+
+
+# View all tags and their associated cards
+@app.route("/tags")
+@login_required
+def tags():
+	tags = db.execute("SELECT tag FROM notes")
+	return render_template("tags.html", tags=tags)
+
 
 
 # Delete

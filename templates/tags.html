@@ -1,1 +1,23 @@
 <!-- To view all tags and cards with those tags -->
+
+{% extends "layout.html" %}
+
+{% block title %}
+    Tags
+{% endblock %}
+
+{% block main %}
+
+  {% for i in tags %}
+
+
+<div class="btn-group">
+  <form action="/tag" method="post">
+    <button type="submit" class="btn btn-outline-secondary button-box px-3 ml-2" name="tag" value="{{ i['tag'] }}">#{{ i["tag"] }}</button>
+  </form>
+</div>
+
+
+  {% endfor %}
+
+{% endblock %}
