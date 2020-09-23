@@ -12,33 +12,23 @@
 
 {% for i in note %}
 
-
-<div class="card">
-  <div class="card-header">#{{ i["tag"] }}</div>
-  <div class="card-body">
-    <h5 class="card-title">{{ i["title"] }}</h5>
-    <p class="card-text whitespace">{{ i["body"] }}</p>
-
-    <!-- Edit and delete buttons -->
-    <div class="btn-group">
-      <form method="get" action="/edit/{{ i['note_id'] }}">
-        <button type="submit" class="btn btn-outline-primary mr-3">Edit</button>
-      </form>
-      <form method="post" action="/delete/{{ i['note_id'] }}">
-        <button type="submit" class="btn btn-outline-danger">Delete</button>
-      </form>
-    </div>
+<div>
 
 
-
-
-
-  </div>
-
+<button type="button" class="btn btn-outline-secondary">#{{ i["tag"] }}</button>
+<br><br>
+<h1>{{ i["title"] }}</h1>
+<p class="whitespace">{{ i["body"] }}</p>
 </div>
 
-
-
+<div class="btn-group">
+  <form method="get" action="/edit/{{ i['note_id'] }}">
+    <button type="submit" class="btn btn-outline-primary mr-3">Edit</button>
+  </form>
+  <form method="post" action="/delete/{{ i['note_id'] }}">
+    <button type="submit" class="btn btn-outline-danger">Delete</button>
+  </form>
+</div>
 
 
 {% endfor %}
