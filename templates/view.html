@@ -22,11 +22,11 @@
 </div>
 
 <div class="btn-group">
-  <form method="get" action="/edit/{{ i['note_id'] }}">
-    <button type="submit" class="btn btn-outline-primary mr-3">Edit</button>
+  <form method="post" action="/edit">
+    <button type="submit" class="btn btn-outline-primary mr-3" name="note_id" value="{{ i['note_id'] }}">Edit</button>
   </form>
-  <form method="post" action="/delete/{{ i['note_id'] }}">
-    <button type="submit" class="btn btn-outline-danger">Delete</button>
+  <form method="post" action="/delete">
+    <button type="submit" class="btn btn-outline-danger" name="note_id" value="{{ i['note_id'] }}">Delete</button>
   </form>
 </div>
 

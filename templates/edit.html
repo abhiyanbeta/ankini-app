@@ -8,9 +8,9 @@
 
 {% for i in note %}
 
-<form action="/edited/{{ i['note_id'] }}" method="post" style="max-width: 100rem; text-align: center" class="center_div">
+<form action="/edited" method="post" style="max-width: 100rem; text-align: center" class="center_div">
   <!-- Title text field -->
-  <input class="form-control form-control-lg" type="text" value={{ i["title"] }} required name="title" maxlength="100">
+  <input class="form-control form-control-lg" type="text" value="{{ i['title'] }}" required name="title" maxlength="100">
   <br>
 
   <!-- Text field with # placeholder -->
@@ -20,7 +20,7 @@
        <div class="input-group-prepend">
          <div class="input-group-text">#</div>
        </div>
-       <input type="text" class="form-control" value={{ i["tag"] }} name="tag" required onkeydown="return keydownHandler(event)" maxlength="25" pattern="[a-zA-Z]+" title="Letters only. No special characters including #.">
+       <input type="text" class="form-control" value="{{ i['tag'] }}" name="tag" required onkeydown="return keydownHandler(event)" maxlength="25" pattern="[a-zA-Z]+" title="Letters only. No special characters including #.">
      </div>
    </div>
   <br>
@@ -28,7 +28,7 @@
      <div class="form-group">
       <textarea class="form-control" rows="11" required name="body">{{ i["body"] }}</textarea>
     </div>
-    <button class="btn btn-primary" type="submit">Save</button>
+    <button class="btn btn-primary" type="submit" value="{{ i['note_id'] }}" name="note_id">Save</button>
 
 </form>
 

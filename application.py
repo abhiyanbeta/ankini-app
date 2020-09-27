@@ -12,7 +12,7 @@ from helpers import apology, login_required
 # Configure application
 app = Flask(__name__)
 
-# Configure database
+# Configure SQL database
 db = SQL("postgres://xxdbvyyiutrzfh:5f34c27570b453c1bf7878ec081efdd290c5cefff7684fd75e9d55c946d91273@ec2-54-247-94-127.eu-west-1.compute.amazonaws.com:5432/d1r5sk71q9ge8f")
 
 # Ensure templates are auto-reloaded
@@ -21,6 +21,7 @@ app.config["TEMPLATES_AUTO_RELOAD"] = True
 app.config["SESSION_PERMANENT"] = False
 app.config["SESSION_TYPE"] = "filesystem"
 Session(app)
+
 
 # Ensure responses aren't cached
 @app.after_request
@@ -31,13 +32,6 @@ def after_request(response):
 	return response
 
 
-
-# Configure SQL database
-'''
-TODO
-'''
-
-
 # Home page
 @app.route("/")
 @login_required
@@ -46,12 +40,7 @@ def index():
 		SELECT * FROM notes
 		WHERE user_id=:user_id
 	""", user_id=session["user_id"])
-
-
-
-
 	return render_template("index.html", notes=notes)
-
 
 
 # Password validation
@@ -61,7 +50,6 @@ def validate(password):
 		return apology("Password must be at least 6 characters")
 	elif not re.search("[0-9]", password):  # No number entered
 		return apology("Password must contain at least one number")
-
 
 
 @app.route("/signup", methods=["GET", "POST"])
@@ -126,6 +114,7 @@ def login():
 	else:  # Page reached via GET method
 		return render_template("login.html")
 
+
 # Log out
 @app.route("/logout")
 def logout():
@@ -134,7 +123,7 @@ def logout():
 
 
 # Add new cards
-@app.route("/add", methods=["GET", "POST"])  #Need to do POST method for submitting form
+@app.route("/add", methods=["GET", "POST"])
 @login_required
 def add():
 	if request.method == "POST":
@@ -151,27 +140,27 @@ def add():
 		flash("Added note!")
 		return redirect("/add")
 
-	else: # GET request
+	else: # GET request for adding a new card
 		return render_template("add.html")
 
 
-# Edit new card -- need to prefill it with text from existing card
-# TODO Atm anyone can visit note id by typing in URL, need to validate that user owns that note
-@app.route("/edit/<note_id>", methods=["GET", "POST"])  #Need to do POST method for submitting form
+# Edit new card - prefils with existing note contents
+@app.route("/edit", methods=["GET", "POST"])
 @login_required
-def edit(note_id):
-
+def edit():
+	note_id = request.form.get("note_id")
 	note = db.execute("""
 		SELECT * FROM notes
 		WHERE note_id=:note_id
 	""", note_id=note_id)
-
 	return render_template("edit.html", note=note)
 
 
-@app.route("/edited/<note_id>", methods=["POST"])  #Need to do POST method for submitting form
+# Save changes after user edits the note
+@app.route("/edited", methods=["GET", "POST"])
 @login_required
-def edited(note_id):
+def edited():
+	note_id = request.form.get("note_id")
 	edited = db.execute("""
 		UPDATE notes
 		SET tag=:tag, title=:title, body=:body
@@ -182,15 +171,16 @@ def edited(note_id):
 
 
 # View the card
-# TODO Atm anyone can visit note id by typing in URL, need to validate that user owns that note
-@app.route("/view/<note_id>")
+@app.route("/view", methods=["GET", "POST"])
 @login_required
-def view(note_id):
+def view():
+	note_id = request.form.get("note_id")
 	note = db.execute("""
 		SELECT * FROM notes
 		WHERE note_id=:note_id
 	""", note_id=note_id)
 	return render_template("view.html", note_id=note_id, note=note)
+
 
 # View all cards associated with single tag
 @app.route("/tag", methods=["GET", "POST"])
@@ -213,21 +203,17 @@ def tags():
 	return render_template("tags.html", tags=tags)
 
 
-
 # Delete
-@app.route("/delete/<note_id>", methods=["POST"])
+@app.route("/delete", methods=["GET", "POST"])
 @login_required
-def delete(note_id):
-    db.execute("""
-		DELETE FROM notes
-		WHERE note_id=:note_id
+def delete():
+	note_id = request.form.get("note_id")
+	db.execute("""
+	DELETE FROM notes
+	WHERE note_id=:note_id
 	""", note_id=note_id)
-    flash('Deleted!')
-    return redirect("/")
-
-
-
-
+	flash('Deleted!')
+	return redirect("/")
 
 
 # Error handling
