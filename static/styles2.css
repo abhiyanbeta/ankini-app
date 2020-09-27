@@ -27,3 +27,14 @@ main img
    margin-top:7px;
    margin-bottom:7px;
 }
+
+/* Footer at bottom of viewport */
+.footer {
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  background-color: transparent;
+  color: white;
+  text-align: center;
+}
