@@ -199,7 +199,11 @@ def tag():
 @app.route("/tags")
 @login_required
 def tags():
-	tags = db.execute("SELECT tag FROM notes")
+	tags = db.execute("""
+	SELECT tag FROM notes
+	WHERE user_id=:user_id
+	GROUP BY tag
+	""", user_id=session["user_id"])
 	return render_template("tags.html", tags=tags)
 
 

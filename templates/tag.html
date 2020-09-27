@@ -26,11 +26,11 @@
 
           <!-- View/edit and delete buttons -->
           <div class="btn-group">
-            <form method="get" action="/view/{{ note['note_id'] }}">
-              <button type="submit" class="btn btn-outline-primary mr-3">View/edit</button>
+            <form method="post" action="/view">
+              <button type="submit" class="btn btn-outline-primary mr-3" name="note_id" value="{{ note['note_id'] }}">View/edit</button>
             </form>
-            <form method="post" action="/delete/{{ note['note_id'] }}">
-              <button type="submit" class="btn btn-outline-danger">Delete</button>
+            <form method="post" action="/delete">
+              <button type="submit" class="btn btn-outline-danger" name="note_id" value="{{ note['note_id'] }}">Delete</button>
             </form>
           </div>
 
