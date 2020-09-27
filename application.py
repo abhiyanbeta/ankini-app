@@ -54,7 +54,7 @@ def validate(password):
 
 @app.route("/signup", methods=["GET", "POST"])
 def register():
-	if request.method == "POST":  # TODO if user tries to register
+	if request.method == "POST":
 		# -- Error checking for email and password --
 		# Validate password complexity
 		validation_errors = validate(request.form.get("password"))
