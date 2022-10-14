@@ -7,6 +7,11 @@ To access Ankini web app, visit the link below:
 
 https://ankini-recreate.herokuapp.com/
 
+## Screenshot
+
+<img width="1079" alt="CleanShot 2022-10-14 at 09 43 26" src="https://user-images.githubusercontent.com/57075221/195803511-164cdd91-d73e-475c-994a-3d47f9a0c826.png">
+
+
 ## Technologies used
 
 These are the following programming languages/frameworks that were used to make and deploy Ankini web app.
