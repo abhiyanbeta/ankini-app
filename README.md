@@ -11,12 +11,12 @@ https://ankini-recreate.herokuapp.com/
 
 These are the following programming languages/frameworks that were used to make and deploy Ankini web app.
 
-Python
-Flask
-PostgreSQL
-HTML
-CSS
-Bootstrap
-Javascript
-jQuery
-Heroku
+* Python
+* Flask
+* PostgreSQL
+* HTML
+* CSS
+* Bootstrap
+* Javascript
+* jQuery
+* Heroku
