@@ -5,7 +5,7 @@ Ankini is a web app created as part of my final project for Harvard's CS50 cours
 
 To access Ankini web app, visit the link below:
 
-https://ankini-app.herokuapp.com/
+https://ankini-recreate.herokuapp.com/
 
 ## Technologies used
 
